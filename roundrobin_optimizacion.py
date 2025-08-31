@@ -11,6 +11,8 @@
 ## la ejecución en ese orden.
 
 def NuevoProceso(L, Laux, R):
+    print('\n______________________________\n_______Carga de datos_________\n______________________________\n')
+    
     canProcesos = int(input('Ingresa la cantidad de procesos: '))
     for j in range(canProcesos):
         PID = str(input(f'Ingrese el id del proceso {j}:'))
@@ -54,14 +56,16 @@ while Laux['TS'].sum() > 0:
     
     nuevo = 0
     while nuevo != 1 and nuevo != 2:
+        print('----------------------------------------')
         nuevo = int(input('Que deseas hacer? (ingresa el numero de la opcion)\n1.-\tAgregar un nuevo proceso.\n2.-\tContinuar ronda.\nRespusta>'))
     
     if nuevo == 1:
         NuevoProceso(L, Laux, R)
         
     
-    
-        
+    print('\n/////////////////////\n/////Nueva Ronda////\n////////////////////')
+    Laux = Laux.sort_values('TS').reset_index(drop=True)
+       
     for i in range(len(Laux)):  
 
         if Laux.loc[i, "TS"] > 0: 
@@ -97,7 +101,9 @@ while Laux['TS'].sum() > 0:
                 #Tiempo de retorno = tiempo final - tiempo llegada (0)
                 Laux.loc[i, "TR"] = Laux.loc[i, "TF"] - Laux.loc[i, "TL"]
                 #Tiempo de espera = tiempo retorno - tiempo servicio
-                Laux.loc[i, "TE"] = Laux.loc[i, "TR"] - L.loc[i, "TS"]
+                Laux.loc[i, "TE"] = Laux.loc[i, "TR"] - L.loc[L["PID"] == Laux.loc[i, "PID"], "TS"].values[0]
+
+                
             # Guardar ejecución
             ejecuciones.append((ronda, Laux.loc[i, "PID"], inicio, duracion))
     
