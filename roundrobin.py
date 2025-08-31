@@ -82,6 +82,7 @@ print("\nTiempo de retorno promedio:\n", Laux['TR'].mean())
 print('Fin')
 
 # -------------------------------
+# Plot
 # -------------------------------
 fig, ax = plt.subplots(figsize=(12,4))
 
