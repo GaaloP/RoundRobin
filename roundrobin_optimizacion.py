@@ -1,12 +1,15 @@
-# Que se va a optimizar?
-## Se agregara la funcion SPF (small process first), con el objetivo de optimizar los
-## tiempos de espera y retorno promedio, esto gracias a que para los procesos mas cortos (hablando en
-## cuestion de tiempo de servicio) se ejecutaran mas comunmente y se reducira en gran cantidad su
-## tiempo de espera. Ademas, se evaluara el tiempo de llegada de cada proceso, en caso de 
-## que alguno llegue mientras la ronda ya este iniciada la ronda, este sera agregado a la sigueinte ronda, 
-## para lograrlo haremos uso de un algoritmo de ordenamiento en cada ronda, que evaluara cuanto 
-## tiempo de servicio le falta por ejecutar a cada proceso, ordenara de menor a mayor y comenzara 
-## la ronda.
+# ¿Qué se va a optimizar?
+## Se implementará la función SPF (Small Process First) con el objetivo de optimizar 
+## los tiempos de espera y de retorno promedio. La lógica detrás de esta estrategia es que 
+## los procesos más cortos (en términos de tiempo de servicio) se ejecuten con mayor frecuencia, 
+## lo que reduce significativamente su tiempo de espera.
+##
+## Además, se considerará el tiempo de llegada de cada proceso. En caso de que un nuevo proceso 
+## llegue mientras una ronda ya está en ejecución, este será añadido a la siguiente ronda. 
+## Para lograrlo, en cada ronda se aplicará un algoritmo de ordenamiento que evaluará el 
+## tiempo de servicio restante de cada proceso, los organizará de menor a mayor y comenzará 
+## la ejecución en ese orden.
+
 
 
 
