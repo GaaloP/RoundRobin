@@ -10,11 +10,21 @@
 ## tiempo de servicio restante de cada proceso, los organizará de menor a mayor y comenzará 
 ## la ejecución en ese orden.
 
-
-
+def NuevoProceso(L, Laux, R):
+    canProcesos = int(input('Ingresa la cantidad de procesos: '))
+    for j in range(canProcesos):
+        PID = str(input(f'Ingrese el id del proceso {j}:'))
+        TS = int(input(f'Ingrese el tiempo de servicio del proceso {j}:'))
+       
+        L.loc[len(Laux)] = [PID, TS, 0, R, 0, 0]
+        Laux.loc[len(Laux)] = [PID, TS, 0, R, 0, 0]
+                
 
 import pandas as pd
 import matplotlib.pyplot as plt
+
+Ti = 1
+R = 0
 
 L = pd.DataFrame()
 L['PID'] = []
@@ -24,21 +34,14 @@ L['TR'] = []
 L['TF'] = []
 L['TE'] = []
 
-
-canProcesos = int(input('Ingresa la cantidad de procesos: '))
-
-for i in range(canProcesos):
-    L.loc[i, 'PID'] = str(input(f'Ingrese el id del proceso {i}:'))
-    L.loc[i, 'TS'] = int(input(f'Ingrese el tiempo de servicio del proceso {i}:'))
-    L.loc[i, 'TL'] = [0]
-    L.loc[i, 'TR'] = [0]
-    L.loc[i, 'TF'] = [0]
-    L.loc[i, 'TE'] = [0]
 Laux = L.copy()
 
+NuevoProceso(L, Laux, R)
+
+
+
 Q = int(input('Ingresa el valor Quantum: '))
-Ti = 1
-R = 0 #ESte es el reloj 
+ #ESte es el reloj 
 Pant = pd.DataFrame()
 Pant['PID'] = []
 Pant['TS'] = []
@@ -48,6 +51,17 @@ ejecuciones = []
 ronda = 1
 
 while Laux['TS'].sum() > 0:
+    
+    nuevo = 0
+    while nuevo != 1 and nuevo != 2:
+        nuevo = int(input('Que deseas hacer? (ingresa el numero de la opcion)\n1.-\tAgregar un nuevo proceso.\n2.-\tContinuar ronda.\nRespusta>'))
+    
+    if nuevo == 1:
+        NuevoProceso(L, Laux, R)
+        
+    
+    
+        
     for i in range(len(Laux)):  
 
         if Laux.loc[i, "TS"] > 0: 
