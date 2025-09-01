@@ -10,6 +10,10 @@
 ## tiempo de servicio restante de cada proceso, los organizará de menor a mayor y comenzará 
 ## la ejecución en ese orden.
 
+import pandas as pd
+import matplotlib.pyplot as plt
+import random
+
 def NuevoProceso(L, Laux, R):
     print('\n______________________________\n_______Carga de datos_________\n______________________________\n')
     
@@ -21,9 +25,8 @@ def NuevoProceso(L, Laux, R):
         L.loc[len(Laux)] = [PID, TS, 0, R, 0, 0]
         Laux.loc[len(Laux)] = [PID, TS, 0, R, 0, 0]
                 
-
-import pandas as pd
-import matplotlib.pyplot as plt
+def color_random():
+    return "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
 Ti = 1
 R = 0
@@ -55,11 +58,11 @@ ronda = 1
 while Laux['TS'].sum() > 0:
     
     nuevo = 0
-    while nuevo != 1 and nuevo != 2:
+    while nuevo != '1' and nuevo != '2':
         print('----------------------------------------')
-        nuevo = int(input('Que deseas hacer? (ingresa el numero de la opcion)\n1.-\tAgregar un nuevo proceso.\n2.-\tContinuar ronda.\nRespusta>'))
+        nuevo = input('Que deseas hacer? (ingresa el numero de la opcion)\n1.-\tAgregar un nuevo proceso.\n2.-\tContinuar ronda.\nRespusta>')
     
-    if nuevo == 1:
+    if nuevo == '1':
         NuevoProceso(L, Laux, R)
         
     
@@ -121,12 +124,13 @@ print('Fin')
 # -------------------------------
 fig, ax = plt.subplots(figsize=(12,4))
 
-colores = {"A":"skyblue", "B":"coral", "C":"blue",
-           "D":"orange", "E":"green", "F":"purple"}
-
+colores = {}
 for r, pid, inicio, dur in ejecuciones:
+    if pid not in colores:
+        colores[pid] = color_random()
+
     y = (r-1) * 10
-    ax.broken_barh([(inicio, dur)], (y, 8), facecolors=colores.get(pid,"gray"))
+    ax.broken_barh([(inicio, dur)], (y, 8), facecolors=colores[pid])
     ax.text(inicio + dur/2, y+4, pid, ha="center", va="center", color="white", fontsize=9)
 
 ax.set_xlabel("Tiempo (R)")
